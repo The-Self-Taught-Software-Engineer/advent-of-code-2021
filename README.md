@@ -17,9 +17,10 @@ puzzle is unlocked when you complete the first. Each puzzle grants one star. Goo
 Your instincts tell you that in order to save Christmas, you'll need to get all fifty stars by December 25th.
 
 ## Puzzles
-| Day                        	        | Part 1 	| Part 2 	|
-|----------------------------	        |--------	|--------	|
-| Day 1: 	                            | ⭐      	| ⭐      	|
+
+| Day                | Part 1 | Part 2 |
+|--------------------|--------|--------|
+| Day 1: Sonar Sweep | ⭐      | ⭐      |
 
 ### Tests
 
