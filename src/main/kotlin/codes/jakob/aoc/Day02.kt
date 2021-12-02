@@ -2,18 +2,15 @@ package codes.jakob.aoc
 
 object Day02 : Solution() {
     override fun solvePart1(input: String): Any {
-        val lines: List<String> = input.splitMultiline()
+        val instructions: List<Pair<String, Int>> = input.splitMultiline().map { parseInstruction(it) }
 
         var horizontalPosition = 0
         var depth = 0
-        for (instruction: String in lines) {
-            val value: Int = retrieveValue(instruction)
-            if (instruction.startsWith("forward")) {
-                horizontalPosition += value
-            } else if (instruction.startsWith("up")) {
-                depth -= value
-            } else if (instruction.startsWith("down")) {
-                depth += value
+        for ((direction: String, value: Int) in instructions) {
+            when (direction) {
+                "forward" -> horizontalPosition += value
+                "up" -> depth -= value
+                "down" -> depth += value
             }
         }
 
@@ -21,28 +18,28 @@ object Day02 : Solution() {
     }
 
     override fun solvePart2(input: String): Any {
-        val lines: List<String> = input.splitMultiline()
+        val instructions: List<Pair<String, Int>> = input.splitMultiline().map { parseInstruction(it) }
 
         var horizontalPos = 0
         var depth = 0
         var aim = 0
-        for (instruction: String in lines) {
-            val value: Int = retrieveValue(instruction)
-            if (instruction.startsWith("forward")) {
-                horizontalPos += value
-                depth += (aim * value)
-            } else if (instruction.startsWith("up")) {
-                aim -= value
-            } else if (instruction.startsWith("down")) {
-                aim += value
+        for ((direction: String, value: Int) in instructions) {
+            when (direction) {
+                "forward" -> {
+                    horizontalPos += value
+                    depth += (aim * value)
+                }
+                "up" -> aim -= value
+                "down" -> aim += value
             }
         }
 
         return horizontalPos * depth
     }
 
-    private fun retrieveValue(instruction: String): Int {
-        return instruction.split(" ")[1].toInt()
+    private fun parseInstruction(instruction: String): Pair<String, Int> {
+        val (direction, value) = instruction.split(" ")
+        return direction to value.toInt()
     }
 }
 
