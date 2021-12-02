@@ -1,17 +1,15 @@
 package codes.jakob.aoc
 
 object Day02 : Solution() {
-    override val identifier: String = this::class.simpleName.toString()
+    override fun solvePart1(input: String): Any {
+        val lines: List<String> = input.splitMultiline()
 
-    override fun solvePart1(input: String): String {
-        val lines: List<String> = splitMultilineInput(input)
-
-        var horizontalPos = 0
+        var horizontalPosition = 0
         var depth = 0
-        for (instruction in lines) {
+        for (instruction: String in lines) {
             val value: Int = retrieveValue(instruction)
             if (instruction.startsWith("forward")) {
-                horizontalPos += value
+                horizontalPosition += value
             } else if (instruction.startsWith("up")) {
                 depth -= value
             } else if (instruction.startsWith("down")) {
@@ -19,16 +17,16 @@ object Day02 : Solution() {
             }
         }
 
-        return (horizontalPos * depth).toString()
+        return horizontalPosition * depth
     }
 
-    override fun solvePart2(input: String): String {
-        val lines: List<String> = splitMultilineInput(input)
+    override fun solvePart2(input: String): Any {
+        val lines: List<String> = input.splitMultiline()
 
         var horizontalPos = 0
         var depth = 0
         var aim = 0
-        for (instruction in lines) {
+        for (instruction: String in lines) {
             val value: Int = retrieveValue(instruction)
             if (instruction.startsWith("forward")) {
                 horizontalPos += value
@@ -40,7 +38,7 @@ object Day02 : Solution() {
             }
         }
 
-        return (horizontalPos * depth).toString()
+        return horizontalPos * depth
     }
 
     private fun retrieveValue(instruction: String): Int {

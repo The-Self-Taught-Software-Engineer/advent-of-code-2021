@@ -1,17 +1,15 @@
 package codes.jakob.aoc
 
 object Day01 : Solution() {
-    override val identifier: String = this::class.simpleName.toString()
-
-    override fun solvePart1(input: String): String {
-        val measurements: List<Int> = splitMultilineInput(input).map { it.toInt() }
-        return countIncreases(measurements).toString()
+    override fun solvePart1(input: String): Any {
+        val measurements: List<Int> = input.splitMultiline().map { it.toInt() }
+        return countIncreases(measurements)
     }
 
-    override fun solvePart2(input: String): String {
-        val measurements: List<Int> = splitMultilineInput(input).map { it.toInt() }
+    override fun solvePart2(input: String): Any {
+        val measurements: List<Int> = input.splitMultiline().map { it.toInt() }
         val windows: List<Int> = measurements.windowed(3).map { it.sum() }
-        return countIncreases(windows).toString()
+        return countIncreases(windows)
     }
 
     private fun countIncreases(values: List<Int>): Int {
