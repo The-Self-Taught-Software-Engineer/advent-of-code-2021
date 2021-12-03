@@ -18,10 +18,11 @@ Your instincts tell you that in order to save Christmas, you'll need to get all 
 
 ## Puzzles
 
-| Day                | Part 1 | Part 2 |
-|--------------------|--------|--------|
-| Day 1: Sonar Sweep | ⭐      | ⭐      |
-| Day 2: Dive!       | ⭐      | ⭐      |
+| Day                      | Part 1 | Part 2 |
+|--------------------------|--------|--------|
+| Day 1: Sonar Sweep       | ⭐      | ⭐      |
+| Day 2: Dive!             | ⭐      | ⭐      |
+| Day 3: Binary Diagnostic | ⭐      | ⭐      |
 
 ### Tests
 

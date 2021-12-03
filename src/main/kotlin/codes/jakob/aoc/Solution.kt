@@ -30,3 +30,13 @@ abstract class Solution {
 }
 
 fun String.splitMultiline(): List<String> = split("\n")
+
+fun List<Int>.convertToDecimal(): Int {
+    require(this.all { it == 0 || it == 1 }) { "Expected bit string, but received $this" }
+    return Integer.parseInt(this.joinToString(""), 2)
+}
+
+fun Int.bitFlip(): Int {
+    require(this == 0 || this == 1) { "Expected bit, but received $this" }
+    return this.xor(1)
+}
