@@ -6,15 +6,11 @@ object Day03 : Solution() {
             .splitMultiline()
             .map { row -> row.split("").filter { it.isNotBlank() }.map { it.toInt() } }
 
-        val mostCommonBits: MutableList<Int> = mutableListOf()
-        for (column: Int in rows.first().indices) {
-            val mostCommonBit: Int = findMostCommonBit(rows, column)
-            mostCommonBits.add(mostCommonBit)
-        }
+        val mostCommonBits: List<Int> = rows.first().indices.map { findMostCommonBit(rows, it) }
         val leastCommonBits: List<Int> = mostCommonBits.map { it.bitFlip() }
 
-        val gammaRate: Int = mostCommonBits.convertToDecimal()
-        val epsilonRate: Int = leastCommonBits.convertToDecimal()
+        val gammaRate: Int = mostCommonBits.binaryToDecimal()
+        val epsilonRate: Int = leastCommonBits.binaryToDecimal()
 
         return gammaRate * epsilonRate
     }
@@ -37,7 +33,7 @@ object Day03 : Solution() {
             if (matches.count() == 1) break
         }
         require(matches.count() == 1) { "Expected exactly one match to be left over" }
-        return matches.first().convertToDecimal()
+        return matches.first().binaryToDecimal()
     }
 
     private fun findMostCommonBit(rows: List<List<Int>>, column: Int, equallyCommonDefault: Int = 1): Int {
