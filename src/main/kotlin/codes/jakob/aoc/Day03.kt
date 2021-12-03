@@ -2,9 +2,7 @@ package codes.jakob.aoc
 
 object Day03 : Solution() {
     override fun solvePart1(input: String): Any {
-        val rows: List<List<Int>> = input
-            .splitMultiline()
-            .map { row -> row.split("").filter { it.isNotBlank() }.map { it.toInt() } }
+        val rows: List<List<Int>> = convertToBitString(input)
 
         val mostCommonBits: List<Int> = rows.first().indices.map { findMostCommonBit(rows, it) }
         val leastCommonBits: List<Int> = mostCommonBits.map { it.bitFlip() }
@@ -16,13 +14,18 @@ object Day03 : Solution() {
     }
 
     override fun solvePart2(input: String): Any {
-        val rows: List<List<Int>> = input
-            .splitMultiline()
-            .map { row -> row.split("").filter { it.isNotBlank() }.map { it.toInt() } }
+        val rows: List<List<Int>> = convertToBitString(input)
 
         val oxygenRating: Int = calculateRating(rows, this::findMostCommonBit)
         val co2ScrubberRating: Int = calculateRating(rows, this::findLeastCommonBit)
+
         return oxygenRating * co2ScrubberRating
+    }
+
+    private fun convertToBitString(input: String): List<List<Int>> {
+        return input
+            .splitMultiline()
+            .map { row -> row.split("").filter { it.isNotBlank() }.map { it.toInt() } }
     }
 
     private fun calculateRating(rows: List<List<Int>>, bitFinder: (List<List<Int>>, Int) -> Int): Int {
