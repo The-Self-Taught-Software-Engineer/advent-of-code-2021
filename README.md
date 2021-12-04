@@ -23,6 +23,7 @@ Your instincts tell you that in order to save Christmas, you'll need to get all 
 | Day 1: Sonar Sweep       | ⭐      | ⭐      |
 | Day 2: Dive!             | ⭐      | ⭐      |
 | Day 3: Binary Diagnostic | ⭐      | ⭐      |
+| Day 4: Giant Squid       | ⭐      | ⭐      |
 
 ### Tests
 

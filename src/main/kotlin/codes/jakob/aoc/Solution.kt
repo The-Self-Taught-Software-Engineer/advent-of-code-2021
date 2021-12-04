@@ -40,3 +40,20 @@ fun Int.bitFlip(): Int {
     require(this == 0 || this == 1) { "Expected bit, but received $this" }
     return this.xor(1)
 }
+
+fun String.toBitString(): List<Int> {
+    val bits: List<String> = split("").filter { it.isNotBlank() }
+    require(bits.all { it == "0" || it == "1" }) { "Expected bit string, but received $this" }
+    return bits.map { it.toInt() }
+}
+
+/**
+ * [Transposes](https://en.wikipedia.org/wiki/Transpose) the given list of nested lists (a matrix, in essence).
+ *
+ * This function is adapted from this [post](https://stackoverflow.com/a/66401340).
+ */
+fun <T> List<List<T>>.transpose(): List<List<T>> {
+    val result: MutableList<MutableList<T>> = (this.first().indices).map { mutableListOf<T>() }.toMutableList()
+    this.forEach { columns -> result.zip(columns).forEach { (rows, cell) -> rows.add(cell) } }
+    return result
+}
