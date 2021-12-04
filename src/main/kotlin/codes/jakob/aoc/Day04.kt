@@ -91,8 +91,8 @@ object Day04 : Solution() {
          * Note that this method can short-circuit in terms of both checking within a row or column, and between them.
          */
         private fun checkIfWon(): Boolean {
-            return (board.map { row -> row.all { it.isMarked } }.any { it }
-                    || transposedBoard.map { column -> column.all { it.isMarked } }.any { it })
+            return (board.asSequence().map { row -> row.all { it.isMarked } }.any { it }
+                    || transposedBoard.asSequence().map { column -> column.all { it.isMarked } }.any { it })
         }
 
         override fun equals(other: Any?): Boolean {
