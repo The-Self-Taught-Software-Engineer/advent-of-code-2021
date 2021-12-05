@@ -20,7 +20,7 @@ object Day05 : Solution() {
     }
 
     private fun countOverlappingPoints(lines: Collection<Line>): Int {
-        val points: List<Point> = lines.flatMap { it.points }
+        val points: Collection<Point> = lines.flatMap { it.points }
         val pointsFrequencies: Map<Point, Int> = points.groupBy { it }.mapValues { it.value.count() }
         return pointsFrequencies.values.count { it > 1 }
     }
@@ -48,8 +48,8 @@ object Day05 : Solution() {
         val from: Point,
         val to: Point,
     ) {
-        private val euclidieanDistance: Double = euclideanDistance()
-        private val hops: Int = if (isDiagonal()) abs(from.x - to.x) else euclidieanDistance.toInt()
+        private val euclideanDistance: Double = euclideanDistance()
+        private val hops: Int = if (isDiagonal()) abs(from.x - to.x) else euclideanDistance.toInt()
         val points: List<Point> by lazy { listOf(from) + pointsInBetween() + listOf(to) }
 
         fun isDiagonal(): Boolean {
@@ -61,7 +61,7 @@ object Day05 : Solution() {
         }
 
         private fun pointAtDistanceInBetween(hopsFrom: Int): Point {
-            val t: Double = (hopsFrom * (euclidieanDistance / hops)) / euclidieanDistance
+            val t: Double = (hopsFrom * (euclideanDistance / hops)) / euclideanDistance
             val x: Double = (1 - t) * from.x + t * to.x
             val y: Double = (1 - t) * from.y + t * to.y
             return Point(x.roundToInt(), y.roundToInt())
