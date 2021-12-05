@@ -48,8 +48,8 @@ object Day05 : Solution() {
         val from: Point,
         val to: Point,
     ) {
-        val cartesianDistance: Double = cartesianDistance()
-        val hops: Int = if (isDiagonal()) abs(from.x - to.x) else cartesianDistance.toInt()
+        val euclidianDistance: Double = euclidianDistance()
+        val hops: Int = if (isDiagonal()) abs(from.x - to.x) else euclidianDistance.toInt()
         val points: List<Point> by lazy { listOf(from) + pointsInBetween() + listOf(to) }
 
         fun isDiagonal(): Boolean {
@@ -61,13 +61,13 @@ object Day05 : Solution() {
         }
 
         private fun pointAtDistanceInBetween(hopsFrom: Int): Point {
-            val t: Double = (hopsFrom * (cartesianDistance / hops)) / cartesianDistance
+            val t: Double = (hopsFrom * (euclidianDistance / hops)) / euclidianDistance
             val x: Double = (1 - t) * from.x + t * to.x
             val y: Double = (1 - t) * from.y + t * to.y
             return Point(x.roundToInt(), y.roundToInt())
         }
 
-        private fun cartesianDistance(): Double {
+        private fun euclidianDistance(): Double {
             return sqrt((to.x - from.x).toDouble().pow(2) + (to.y - from.y).toDouble().pow(2))
         }
     }
