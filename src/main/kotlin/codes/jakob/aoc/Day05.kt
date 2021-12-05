@@ -9,12 +9,17 @@ import kotlin.math.sqrt
 object Day05 : Solution() {
     private const val CONNECTOR_ARROW = " -> "
 
-    override fun solvePart1(input: String): Any = countOverlappingPoints(input) { !it.isDiagonal() }
+    override fun solvePart1(input: String): Any {
+        val lines: Collection<Line> = parseLines(input).filterNot { it.isDiagonal() }
+        return countOverlappingPoints(lines)
+    }
 
-    override fun solvePart2(input: String): Any = countOverlappingPoints(input)
+    override fun solvePart2(input: String): Any {
+        val lines: Collection<Line> = parseLines(input)
+        return countOverlappingPoints(lines)
+    }
 
-    private fun countOverlappingPoints(input: String, filter: (Line) -> Boolean = { true }): Int {
-        val lines: List<Line> = parseLines(input).filter(filter)
+    private fun countOverlappingPoints(lines: Collection<Line>): Int {
         val points: List<Point> = lines.flatMap { it.points }
         val pointsFrequencies: Map<Point, Int> = points.groupBy { it }.mapValues { it.value.count() }
         return pointsFrequencies.values.count { it > 1 }
@@ -45,7 +50,7 @@ object Day05 : Solution() {
     ) {
         val cartesianDistance: Double = cartesianDistance()
         val hops: Int = if (isDiagonal()) abs(from.x - to.x) else cartesianDistance.toInt()
-        val points: List<Point> = listOf(from) + pointsInBetween() + listOf(to)
+        val points: List<Point> by lazy { listOf(from) + pointsInBetween() + listOf(to) }
 
         fun isDiagonal(): Boolean {
             return !(from.x == to.x || from.y == to.y)
