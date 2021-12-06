@@ -31,6 +31,10 @@ abstract class Solution {
 
 fun String.splitMultiline(): List<String> = split("\n")
 
+fun <T, K> Collection<T>.countBy(keySelector: (T) -> K): Map<K, Int> {
+    return this.groupBy(keySelector).mapValues { it.value.count() }
+}
+
 fun List<Int>.binaryToDecimal(): Int {
     require(this.all { it == 0 || it == 1 }) { "Expected bit string, but received $this" }
     return Integer.parseInt(this.joinToString(""), 2)

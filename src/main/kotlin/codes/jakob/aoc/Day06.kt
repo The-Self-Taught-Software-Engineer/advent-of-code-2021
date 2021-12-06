@@ -10,10 +10,7 @@ object Day06 : Solution() {
     }
 
     private fun simulateDays(initialTimerValues: List<Int>, days: Int): ULong {
-        var fishToAmount: Map<Int, ULong> = initialTimerValues
-            .groupBy { it }
-            .map { it.key to it.value.count().toULong() }
-            .toMap()
+        var fishToAmount: Map<Int, ULong> = initialTimerValues.countBy { it }.mapValues { it.value.toULong() }
 
         println("Starting with ${fishToAmount.values.sum()} fish")
         repeat(days) { day ->
