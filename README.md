@@ -24,7 +24,8 @@ Your instincts tell you that in order to save Christmas, you'll need to get all 
 | Day 2: Dive!                | ⭐      | ⭐      |
 | Day 3: Binary Diagnostic    | ⭐      | ⭐      |
 | Day 4: Giant Squid          | ⭐      | ⭐      |
-| Day 4: Hydrothermal Venture | ⭐      | ⭐      |
+| Day 5: Hydrothermal Venture | ⭐      | ⭐      |
+| Day 6: Lanternfish          | ⭐      | ⭐      |
 
 ### Tests
 
