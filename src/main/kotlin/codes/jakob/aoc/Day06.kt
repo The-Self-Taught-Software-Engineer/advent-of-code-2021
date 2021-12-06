@@ -15,7 +15,7 @@ object Day06 : Solution() {
             .map { it.key to it.value.count().toULong() }
             .toMap()
 
-        println("Starting with ${countTotalFish(fishToAmount)} fish")
+        println("Starting with ${fishToAmount.values.sum()} fish")
         repeat(days) { day ->
             fishToAmount = fishToAmount
                 .flatMap { (timeUntilProcreation, amount) ->
@@ -26,21 +26,11 @@ object Day06 : Solution() {
                     }
                 }
                 .groupBy({ it.first }, { it.second })
-                .mapValues { (_, amounts) -> countTotalFish(amounts) }
-            println("Population reached ${countTotalFish(fishToAmount)} fish after day ${day + 1}")
+                .mapValues { (_, amounts) -> amounts.sum() }
+            println("Population reached ${fishToAmount.values.sum()} fish after day ${day + 1}")
         }
 
-        return countTotalFish(fishToAmount)
-    }
-
-    private fun countTotalFish(amounts: Collection<ULong>): ULong {
-        var totalFishAmount: ULong = 0UL
-        amounts.forEach { totalFishAmount += it }
-        return totalFishAmount
-    }
-
-    private fun countTotalFish(fishToAmount: Map<Int, ULong>): ULong {
-        return countTotalFish(fishToAmount.values)
+        return fishToAmount.values.sum()
     }
 
     private fun parseInput(input: String): List<Int> {
