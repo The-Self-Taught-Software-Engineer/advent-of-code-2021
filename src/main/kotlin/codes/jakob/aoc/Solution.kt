@@ -31,6 +31,9 @@ abstract class Solution {
 
 fun String.splitMultiline(): List<String> = split("\n")
 
+/**
+ * Calculates the [triangular number](https://en.wikipedia.org/wiki/Triangular_number) of the given number.
+ */
 fun Long.triangular(): Long = ((this * (this + 1)) / 2)
 
 fun <T, K> Collection<T>.countBy(keySelector: (T) -> K): Map<K, Int> {
