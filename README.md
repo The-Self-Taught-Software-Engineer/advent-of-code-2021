@@ -18,14 +18,15 @@ Your instincts tell you that in order to save Christmas, you'll need to get all 
 
 ## Puzzles
 
-| Day                         | Part 1 | Part 2 |
-|-----------------------------|--------|--------|
-| Day 1: Sonar Sweep          | ⭐      | ⭐      |
-| Day 2: Dive!                | ⭐      | ⭐      |
-| Day 3: Binary Diagnostic    | ⭐      | ⭐      |
-| Day 4: Giant Squid          | ⭐      | ⭐      |
-| Day 5: Hydrothermal Venture | ⭐      | ⭐      |
-| Day 6: Lanternfish          | ⭐      | ⭐      |
+| Day                            | Part 1 | Part 2 |
+|--------------------------------|--------|--------|
+| Day 1: Sonar Sweep             | ⭐      | ⭐      |
+| Day 2: Dive!                   | ⭐      | ⭐      |
+| Day 3: Binary Diagnostic       | ⭐      | ⭐      |
+| Day 4: Giant Squid             | ⭐      | ⭐      |
+| Day 5: Hydrothermal Venture    | ⭐      | ⭐      |
+| Day 6: Lanternfish             | ⭐      | ⭐      |
+| Day 7: The Treachery of Whales | ⭐      | ⭐      |
 
 ### Tests
 

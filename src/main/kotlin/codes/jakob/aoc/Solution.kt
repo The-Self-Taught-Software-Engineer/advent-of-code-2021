@@ -31,6 +31,8 @@ abstract class Solution {
 
 fun String.splitMultiline(): List<String> = split("\n")
 
+fun Long.triangular(): Long = ((this * (this + 1)) / 2)
+
 fun <T, K> Collection<T>.countBy(keySelector: (T) -> K): Map<K, Int> {
     return this.groupBy(keySelector).mapValues { it.value.count() }
 }
