@@ -27,6 +27,7 @@ Your instincts tell you that in order to save Christmas, you'll need to get all 
 | Day 5: Hydrothermal Venture    | ⭐      | ⭐      |
 | Day 6: Lanternfish             | ⭐      | ⭐      |
 | Day 7: The Treachery of Whales | ⭐      | ⭐      |
+| Day 8: Seven Segment Search    | ⭐      | ⭐      |
 
 ### Tests
 

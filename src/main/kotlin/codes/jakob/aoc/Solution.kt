@@ -68,3 +68,13 @@ fun <T> List<List<T>>.transpose(): List<List<T>> {
     this.forEach { columns -> result.zip(columns).forEach { (rows, cell) -> rows.add(cell) } }
     return result
 }
+
+/**
+ * Returns any given [Map] with its keys and values reversed (i.e., the keys becoming the values and vice versa).
+ * Note in case of duplicate values, they will be overridden in the key-set unpredictably.
+ */
+fun <K, V> Map<K, V>.reversed(): Map<V, K> {
+    return HashMap<V, K>(this.count()).also { reversedMap: HashMap<V, K> ->
+        this.entries.forEach { reversedMap[it.value] = it.key }
+    }
+}
