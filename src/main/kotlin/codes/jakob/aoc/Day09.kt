@@ -8,15 +8,9 @@ object Day09 : Solution() {
 
     override fun solvePart2(input: String): Any {
         val grid = Grid(parseInput(input))
-
-        val basins: MutableMap<Grid.Cell, MutableSet<Grid.Cell>> =
-            mutableMapOf<Grid.Cell, MutableSet<Grid.Cell>>().withDefault { mutableSetOf() }
-        for (cell: Grid.Cell in grid.cells()) {
-            if (cell.value == 9) continue
-            val closestLowPoint: Grid.Cell = cell.getClosestLowPoint()
-            basins[closestLowPoint] = basins.getValue(closestLowPoint).also { it.add(cell) }
-        }
-
+        val basins: Map<Grid.Cell, Collection<Grid.Cell>> = grid.cells()
+            .filterNot { it.value == 9 }
+            .groupBy { it.getClosestLowPoint() }
         return basins.values.sortedByDescending { it.count() }.take(3).productOf { it.count() }
     }
 
