@@ -33,6 +33,12 @@ abstract class Solution {
 
 fun String.splitMultiline(): List<String> = split("\n")
 
+fun <T> Iterable<T>.productOf(selector: (T) -> Int): Int {
+    var product = 1
+    for (element in this) product *= selector(element)
+    return product
+}
+
 /**
  * Calculates the [triangular number](https://en.wikipedia.org/wiki/Triangular_number) of the given number.
  */
