@@ -5,6 +5,7 @@ package codes.jakob.aoc
 import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.util.*
 
 abstract class Solution {
     abstract fun solvePart1(input: String): Any
@@ -14,8 +15,10 @@ abstract class Solution {
     private val identifier: String = getClassName()
 
     fun solve() {
-        println("Solution for part 1: ${solvePart1(retrieveInput())}")
-        println("Solution for part 2: ${solvePart2(retrieveInput())}")
+        val input: String = retrieveInput()
+
+        println("Solution for part 1: ${solvePart1(input)}")
+        println("Solution for part 2: ${solvePart2(input)}")
     }
 
     fun retrieveInput(): String {
@@ -32,6 +35,14 @@ abstract class Solution {
 }
 
 fun String.splitMultiline(): List<String> = split("\n")
+
+fun Int.isEven(): Boolean = this % 2 == 0
+
+fun Int.isOdd(): Boolean = !isEven()
+
+fun <E> List<E>.middleOrNull(): E? {
+    return if (this.count().isOdd()) this[this.count() / 2] else null
+}
 
 fun <T> Iterable<T>.productOf(selector: (T) -> Int): Int {
     var product = 1
@@ -83,4 +94,8 @@ fun <K, V> Map<K, V>.reversed(): Map<V, K> {
     return HashMap<V, K>(this.count()).also { reversedMap: HashMap<V, K> ->
         this.entries.forEach { reversedMap[it.value] = it.key }
     }
+}
+
+fun <E> Stack<E>.peekOrNull(): E? {
+    return if (this.isNotEmpty()) this.peek() else null
 }
