@@ -1,6 +1,6 @@
-package codes.jakob.aoc
+package codes.jakob.aoc.solution
 
-import codes.jakob.aoc.Day08.Digit.*
+import codes.jakob.aoc.solution.Day08.Digit.*
 
 object Day08 : Solution() {
     override fun solvePart1(input: String): Any {

@@ -1,6 +1,6 @@
-package codes.jakob.aoc
+package codes.jakob.aoc.solution
 
-import codes.jakob.aoc.Day05.Point.Companion.fromCommaSeparated
+import codes.jakob.aoc.solution.Day05.Point.Companion.fromCommaSeparated
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.roundToInt

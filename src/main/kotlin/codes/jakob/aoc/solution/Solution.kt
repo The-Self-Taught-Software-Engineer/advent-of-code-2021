@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package codes.jakob.aoc
+package codes.jakob.aoc.solution
 
 import java.io.File
 import java.nio.file.Path

@@ -1,4 +1,4 @@
-package codes.jakob.aoc
+package codes.jakob.aoc.solution
 
 import java.util.*
 

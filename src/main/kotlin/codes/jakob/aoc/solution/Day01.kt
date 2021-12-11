@@ -1,4 +1,4 @@
-package codes.jakob.aoc
+package codes.jakob.aoc.solution
 
 object Day01 : Solution() {
     override fun solvePart1(input: String): Any {
