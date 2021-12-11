@@ -30,6 +30,7 @@ Your instincts tell you that in order to save Christmas, you'll need to get all 
 | Day 8: Seven Segment Search     | ⭐      | ⭐      |
 | Day 9: Smoke Basin              | ⭐      | ⭐      |
 | Day 10: The Treachery of Whales | ⭐      | ⭐      |
+| Day 11: Dumbo Octopus           | ⭐      | ⭐      |
 
 ### Tests
 
