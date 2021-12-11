@@ -7,9 +7,7 @@ object Day11 : Solution() {
         val grid: Grid<Octopus> = Grid(parseInput(input))
         val octopuses: List<Octopus> = grid.cells.map { it.value }
         return (1..100).sumOf {
-            octopuses.forEach { it.increaseEnergyLevel() }
-            val flashed: Set<Octopus> = octopuses.flatMap { it.checkForFlash() }.toSet()
-            octopuses.forEach { it.resetFlashStatus() }
+            val flashed: Set<Octopus> = simulate(octopuses)
             return@sumOf flashed.count()
         }
     }
@@ -18,11 +16,16 @@ object Day11 : Solution() {
         val grid: Grid<Octopus> = Grid(parseInput(input))
         val octopuses: List<Octopus> = grid.cells.map { it.value }
         return generateSequence(1) { it + 1 }.first {
-            octopuses.forEach { it.increaseEnergyLevel() }
-            val flashed: Set<Octopus> = octopuses.flatMap { it.checkForFlash() }.toSet()
-            octopuses.forEach { it.resetFlashStatus() }
+            val flashed: Set<Octopus> = simulate(octopuses)
             return@first flashed.count() == octopuses.count()
         }
+    }
+
+    private fun simulate(octopuses: List<Octopus>): Set<Octopus> {
+        octopuses.forEach { it.increaseEnergyLevel() }
+        val flashed: Set<Octopus> = octopuses.flatMap { it.checkForFlash() }.toSet()
+        octopuses.forEach { it.resetFlashStatus() }
+        return flashed
     }
 
     private fun parseInput(input: String): List<List<(Grid.Cell<Octopus>) -> Octopus>> {
