@@ -4,60 +4,61 @@ import codes.jakob.aoc.shared.Grid
 
 object Day11 : Solution() {
     override fun solvePart1(input: String): Any {
-        val grid: Grid<Octopus> = Grid(parseInput(input)).also { grid -> grid.cells.forEach { it.value.cell = it } }
+        val grid: Grid<Octopus> = Grid(parseInput(input))
+        val octopuses: List<Octopus> = grid.cells.map { it.value }
         return (1..100).sumOf {
-            grid.cells.forEach { it.value.energyLevel++ }
-            val flashed: Set<Octopus> = getFlashedOctopuses(grid)
-            grid.cells.forEach { it.value.resetFlashStatus() }
+            octopuses.forEach { it.increaseEnergyLevel() }
+            val flashed: Set<Octopus> = octopuses.flatMap { it.checkForFlash() }.toSet()
+            octopuses.forEach { it.resetFlashStatus() }
             return@sumOf flashed.count()
         }
     }
 
     override fun solvePart2(input: String): Any {
-        val grid: Grid<Octopus> = Grid(parseInput(input)).also { grid -> grid.cells.forEach { it.value.cell = it } }
-        return generateSequence(1) { it + 1 }.indexOfFirst {
-            grid.cells.forEach { it.value.energyLevel++ }
-            val flashed: Set<Octopus> = getFlashedOctopuses(grid)
-            grid.cells.forEach { it.value.resetFlashStatus() }
-            return@indexOfFirst flashed.count() == grid.cells.count()
-        } + 1
-    }
-
-    private fun getFlashedOctopuses(grid: Grid<Octopus>): Set<Octopus> {
-        return grid.cells
-            .filter { it.value.willFlash }
-            .flatMap { it.value.startFlash() }
-            .toSet()
-    }
-
-    private fun parseInput(input: String): List<List<Octopus>> {
-        return input.splitMultiline().map { row ->
-            row.split("").filter { it.isNotBlank() }.map { Octopus(it.toInt()) }
+        val grid: Grid<Octopus> = Grid(parseInput(input))
+        val octopuses: List<Octopus> = grid.cells.map { it.value }
+        return generateSequence(1) { it + 1 }.first {
+            octopuses.forEach { it.increaseEnergyLevel() }
+            val flashed: Set<Octopus> = octopuses.flatMap { it.checkForFlash() }.toSet()
+            octopuses.forEach { it.resetFlashStatus() }
+            return@first flashed.count() == octopuses.count()
         }
     }
 
-    data class Octopus(
-        var energyLevel: Int,
-    ) {
-        var cell: Grid.Cell<Octopus>? = null
-        val willFlash: Boolean get() = energyLevel > 9
+    private fun parseInput(input: String): List<List<(Grid.Cell<Octopus>) -> Octopus>> {
+        return input.splitMultiline().map { row ->
+            row.split("").filter { it.isNotBlank() }.map { value ->
+                { cell -> Octopus(cell, value.toInt()) }
+            }
+        }
+    }
+
+    class Octopus(private val cell: Grid.Cell<Octopus>, private var energyLevel: Int) {
+        private val willFlash: Boolean get() = energyLevel > 9
         private var didFlash: Boolean = false
 
-        fun startFlash(): Set<Octopus> {
-            return if (!didFlash) {
-                energyLevel = 0
-                didFlash = true
-                setOf(this) + cell!!.getAdjacent(true).flatMap { it.value.checkForFlash() }
-            } else emptySet()
+        fun checkForFlash(): Set<Octopus> {
+            return if (willFlash) flash() else emptySet()
         }
 
         fun resetFlashStatus() {
             didFlash = false
         }
 
-        private fun checkForFlash(): Set<Octopus> {
-            if (!didFlash) energyLevel++
-            return if (willFlash) startFlash() else emptySet()
+        fun increaseEnergyLevel(increase: Int = 1) {
+            energyLevel += increase
+        }
+
+        private fun flash(): Set<Octopus> {
+            require(willFlash) { "Octopus $this is not ready to flash" }
+            energyLevel = 0
+            didFlash = true
+            return setOf(this) + cell.getAdjacent(true).flatMap { it.value.adjacentFlashed() }
+        }
+
+        private fun adjacentFlashed(): Set<Octopus> {
+            if (!didFlash) increaseEnergyLevel(1)
+            return if (willFlash) flash() else emptySet()
         }
 
         override fun toString(): String {
@@ -76,7 +77,7 @@ object Day11 : Solution() {
         }
 
         override fun hashCode(): Int {
-            return cell?.hashCode() ?: 0
+            return cell.hashCode()
         }
     }
 }

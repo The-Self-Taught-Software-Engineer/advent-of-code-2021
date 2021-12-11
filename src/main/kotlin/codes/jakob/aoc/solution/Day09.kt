@@ -16,9 +16,11 @@ object Day09 : Solution() {
         return basins.values.sortedByDescending { it.count() }.take(3).productOf { it.count() }
     }
 
-    private fun parseInput(input: String): List<List<Int>> {
+    private fun parseInput(input: String): List<List<(Grid.Cell<Int>) -> Int>> {
         return input.splitMultiline().map { row ->
-            row.split("").filter { it.isNotBlank() }.map { it.toInt() }
+            row.split("").filter { it.isNotBlank() }.map { value ->
+                { value.toInt() }
+            }
         }
     }
 

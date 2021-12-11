@@ -1,6 +1,6 @@
 package codes.jakob.aoc.shared
 
-class Grid<T>(input: List<List<T>>) {
+class Grid<T>(input: List<List<(Cell<T>) -> T>>) {
     private val matrix: List<List<Cell<T>>> = generateMatrix(input)
     val cells: List<Cell<T>> = matrix.flatten()
 
@@ -17,20 +17,27 @@ class Grid<T>(input: List<List<T>>) {
         )
     }
 
-    private fun generateMatrix(input: List<List<T>>): List<List<Cell<T>>> {
-        return input.mapIndexed { y: Int, row: List<T> ->
-            row.mapIndexed { x: Int, value: T ->
-                Cell(this, value, x, y)
+    private fun generateMatrix(input: List<List<(Cell<T>) -> T>>): List<List<Cell<T>>> {
+        return input.mapIndexed { y: Int, row: List<(Cell<T>) -> T> ->
+            row.mapIndexed { x: Int, valueConstructor: (Cell<T>) -> T ->
+                Cell(this, x, y, valueConstructor)
             }
         }
     }
 
-    data class Cell<T>(
+    class Cell<T>(
         private val grid: Grid<T>,
-        val value: T,
         val coordinates: Coordinates,
+        valueConstructor: (Cell<T>) -> T,
     ) {
-        constructor(grid: Grid<T>, value: T, x: Int, y: Int) : this(grid, value, Coordinates(x, y))
+        constructor(
+            grid: Grid<T>,
+            x: Int,
+            y: Int,
+            valueConstructor: (Cell<T>) -> T,
+        ) : this(grid, Coordinates(x, y), valueConstructor)
+
+        val value: T = valueConstructor(this)
 
         fun getAdjacent(diagonally: Boolean = false): List<Cell<T>> {
             return grid.getAdjacent(coordinates.x, coordinates.y, diagonally)
