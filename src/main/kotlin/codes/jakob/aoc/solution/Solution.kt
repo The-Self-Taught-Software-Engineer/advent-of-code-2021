@@ -21,7 +21,7 @@ abstract class Solution {
         println("Solution for part 2: ${solvePart2(input)}")
     }
 
-    fun retrieveInput(): String {
+    private fun retrieveInput(): String {
         val inputDirectoryPath: Path = Paths.get("").resolve(INPUT_PATH).toAbsolutePath()
         return File("$inputDirectoryPath/$identifier.$INPUT_FILE_EXTENSION").readText()
     }
