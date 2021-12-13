@@ -22,7 +22,7 @@ object Day13 : Solution() {
         val grid: Grid<Boolean> = Grid(coordinateValues, DEFAULT_CELL_VALUE)
         return instructions
             .take(foldFirstNOnly ?: instructions.count())
-            .fold(grid) { accumulator: Grid<Boolean>, instruction: FoldInstruction -> accumulator.foldOver(instruction) }
+            .fold(grid) { acc: Grid<Boolean>, fi: FoldInstruction -> acc.foldOver(fi) }
     }
 
     private fun parseInput(input: String): Pair<List<Coordinates>, List<FoldInstruction>> {
@@ -58,25 +58,23 @@ object Day13 : Solution() {
 
     @Suppress("UNUSED_ANONYMOUS_PARAMETER")
     private fun Grid<Boolean>.foldOver(instruction: FoldInstruction): Grid<Boolean> {
-        val matrix: List<List<Grid.Cell<Boolean>>> = when (instruction.axis) {
-            FoldInstruction.Axis.X -> this.matrix
-            FoldInstruction.Axis.Y -> this.matrix.transpose()
-        }
+        val (matrix: List<List<Grid.Cell<Boolean>>>, coordinatesConstructor: (Int, Int) -> Coordinates) =
+            when (instruction.axis) {
+                FoldInstruction.Axis.X -> this.matrix to { x: Int, y: Int -> Coordinates(x, y) }
+                FoldInstruction.Axis.Y -> this.matrix.transpose() to { x: Int, y: Int -> Coordinates(y, x) }
+            }
         val coordinateValues: Map<Coordinates, (Grid.Cell<Boolean>) -> Boolean> = matrix
-            .mapIndexed { index: Int, row: List<Grid.Cell<Boolean>> ->
-                instruction.linesMerged.map { (firstIndex: Int, secondIndex: Int) ->
-                    val coordinates: Coordinates = when (instruction.axis) {
-                        FoldInstruction.Axis.X -> Coordinates(firstIndex, index)
-                        FoldInstruction.Axis.Y -> Coordinates(index, firstIndex)
-                    }
+            .mapIndexed { y: Int, row: List<Grid.Cell<Boolean>> ->
+                instruction.linesMerged.map { (xRetained: Int, xDiscarded: Int) ->
+                    val coordinates: Coordinates = coordinatesConstructor(xRetained, y)
                     val value: Boolean =
-                        row.getOrNull(firstIndex)?.value ?: false || row.getOrNull(secondIndex)?.value ?: false
+                        row.getOrNull(xRetained)?.value ?: false || row.getOrNull(xDiscarded)?.value ?: false
                     return@map coordinates to value
                 }
             }
             .flatten()
-            .associate { (coordinates, value) -> coordinates to { cell: Grid.Cell<Boolean> -> value } }
-        return Grid(coordinateValues, DEFAULT_CELL_VALUE, instruction.value)
+            .associate { (coordinates: Coordinates, value: Boolean) -> coordinates to { cell: Grid.Cell<Boolean> -> value } }
+        return Grid(coordinateValues, DEFAULT_CELL_VALUE)
     }
 
     private fun Grid<Boolean>.toPrettyString(): String {

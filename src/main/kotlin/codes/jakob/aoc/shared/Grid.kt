@@ -4,8 +4,7 @@ class Grid<T>(input: List<List<(Cell<T>) -> T>>) {
     constructor(
         coordinateValues: Map<Coordinates, (Cell<T>) -> T>,
         defaultValueConstructor: (Cell<T>) -> T,
-        minCoordinate: Int = 0,
-    ) : this(generateInput(coordinateValues, defaultValueConstructor, minCoordinate))
+    ) : this(generateInput(coordinateValues, defaultValueConstructor))
 
     val matrix: List<List<Cell<T>>> = generateMatrix(input)
     val cells: List<Cell<T>> = matrix.flatten()
@@ -76,10 +75,9 @@ class Grid<T>(input: List<List<(Cell<T>) -> T>>) {
         fun <T> generateInput(
             coordinateValues: Map<Coordinates, (Cell<T>) -> T>,
             defaultValueConstructor: (Cell<T>) -> T,
-            minCoordinate: Int,
         ): List<List<(Cell<T>) -> T>> {
-            val maxX: Int = (coordinateValues.keys.maxOf { it.x } + 1).coerceAtLeast(minCoordinate)
-            val maxY: Int = (coordinateValues.keys.maxOf { it.y } + 1).coerceAtLeast(minCoordinate)
+            val maxX: Int = coordinateValues.keys.maxOf { it.x } + 1
+            val maxY: Int = coordinateValues.keys.maxOf { it.y } + 1
             return List(maxY) { y: Int ->
                 List(maxX) { x: Int ->
                     coordinateValues[Coordinates(x, y)] ?: defaultValueConstructor
