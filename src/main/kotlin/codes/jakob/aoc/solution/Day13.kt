@@ -16,12 +16,12 @@ object Day13 : Solution() {
         return "\n" + foldedGrid.toPrettyString()
     }
 
-    private fun foldOver(input: String, foldTimes: Int? = null): Grid<Boolean> {
+    private fun foldOver(input: String, foldFirstNOnly: Int? = null): Grid<Boolean> {
         val (coordinates: List<Coordinates>, instructions: List<FoldInstruction>) = parseInput(input)
         val coordinateValues: Map<Coordinates, (Grid.Cell<Boolean>) -> Boolean> = coordinates.associateWith { { true } }
         val grid: Grid<Boolean> = Grid(coordinateValues, DEFAULT_CELL_VALUE)
         return instructions
-            .take(foldTimes ?: instructions.count())
+            .take(foldFirstNOnly ?: instructions.count())
             .fold(grid) { accumulator: Grid<Boolean>, instruction: FoldInstruction -> accumulator.foldOver(instruction) }
     }
 
