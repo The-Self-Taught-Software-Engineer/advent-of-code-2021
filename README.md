@@ -31,6 +31,8 @@ Your instincts tell you that in order to save Christmas, you'll need to get all 
 | Day 9: Smoke Basin              | ⭐      | ⭐      |
 | Day 10: The Treachery of Whales | ⭐      | ⭐      |
 | Day 11: Dumbo Octopus           | ⭐      | ⭐      |
+| Day 12: Passage Pathing         |        |        |
+| Day 13: Transparent Origami     | ⭐      | ⭐      |
 
 ### Tests
 

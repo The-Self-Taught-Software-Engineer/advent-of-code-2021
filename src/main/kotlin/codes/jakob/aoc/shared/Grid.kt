@@ -1,7 +1,13 @@
 package codes.jakob.aoc.shared
 
 class Grid<T>(input: List<List<(Cell<T>) -> T>>) {
-    private val matrix: List<List<Cell<T>>> = generateMatrix(input)
+    constructor(
+        coordinateValues: Map<Coordinates, (Cell<T>) -> T>,
+        defaultValueConstructor: (Cell<T>) -> T,
+        minCoordinate: Int = 0,
+    ) : this(generateInput(coordinateValues, defaultValueConstructor, minCoordinate))
+
+    val matrix: List<List<Cell<T>>> = generateMatrix(input)
     val cells: List<Cell<T>> = matrix.flatten()
 
     fun getAdjacent(x: Int, y: Int, diagonally: Boolean = false): List<Cell<T>> {
@@ -66,8 +72,19 @@ class Grid<T>(input: List<List<(Cell<T>) -> T>>) {
         }
     }
 
-    data class Coordinates(
-        val x: Int,
-        val y: Int,
-    )
+    companion object {
+        fun <T> generateInput(
+            coordinateValues: Map<Coordinates, (Cell<T>) -> T>,
+            defaultValueConstructor: (Cell<T>) -> T,
+            minCoordinate: Int,
+        ): List<List<(Cell<T>) -> T>> {
+            val maxX: Int = (coordinateValues.keys.maxOf { it.x } + 1).coerceAtLeast(minCoordinate)
+            val maxY: Int = (coordinateValues.keys.maxOf { it.y } + 1).coerceAtLeast(minCoordinate)
+            return List(maxY) { y: Int ->
+                List(maxX) { x: Int ->
+                    coordinateValues[Coordinates(x, y)] ?: defaultValueConstructor
+                }
+            }
+        }
+    }
 }
