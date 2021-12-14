@@ -33,6 +33,7 @@ Your instincts tell you that in order to save Christmas, you'll need to get all 
 | Day 11: Dumbo Octopus           | ⭐      | ⭐      |
 | Day 12: Passage Pathing         | ⭐      | ⭐      |
 | Day 13: Transparent Origami     | ⭐      | ⭐      |
+| Day 14: Extended Polymerization | ⭐      | ⭐      |
 
 ### Tests
 
