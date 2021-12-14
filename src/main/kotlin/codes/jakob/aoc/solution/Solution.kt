@@ -55,8 +55,13 @@ fun <T> Iterable<T>.productOf(selector: (T) -> Int): Int {
  */
 fun Long.triangular(): Long = ((this * (this + 1)) / 2)
 
+fun CharSequence.toSingleChar(): Char {
+    require(this.count() == 1) { "The given CharSequence has more than one element" }
+    return this.first()
+}
+
 fun <T, K> Collection<T>.countBy(keySelector: (T) -> K): Map<K, Int> {
-    return this.groupBy(keySelector).mapValues { it.value.count() }
+    return this.groupingBy(keySelector).eachCount()
 }
 
 fun List<Int>.binaryToDecimal(): Int {

@@ -67,7 +67,7 @@ object Day10 : Solution() {
                 line
                     .split("")
                     .filter { it.isNotBlank() }
-                    .map { it.toCharArray().first() }
+                    .map { it.toSingleChar() }
                     .map { Character.fromChar(it) ?: error("Character $it not supported") }
             }
     }

@@ -55,7 +55,7 @@ object Day08 : Solution() {
                 signal
                     .split("")
                     .filter { it.isNotBlank() }
-                    .map { it.toCharArray().first() }
+                    .map { it.toSingleChar() }
                     .let { Pattern.fromSymbols(it) }
             }
     }
