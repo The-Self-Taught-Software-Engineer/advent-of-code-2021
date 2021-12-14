@@ -37,8 +37,8 @@ object Day12 : Solution() {
         return input
             .splitMultiline()
             .map { line: String ->
-                val (from: String, to: String) = line.split("-")
-                return@map Cave(from) to Cave(to)
+                val (a: String, b: String) = line.split("-")
+                return@map Cave(a) to Cave(b)
             }
     }
 
