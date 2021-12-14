@@ -20,10 +20,11 @@ object Day14 : Solution() {
         elementInsertionRules: Map<Pair<Char, Char>, Char>,
         times: Int,
     ): Map<Pair<Char, Char>, ULong> {
-        val polymerTemplatePairs: List<Pair<Char, Char>> =
-            polymerTemplate.windowed(2).map { it.first() to it.last() }
-        val elementPairCounts: Map<Pair<Char, Char>, ULong> =
-            polymerTemplatePairs.countBy { it }.mapValues { it.value.toULong() }
+        val elementPairCounts: Map<Pair<Char, Char>, ULong> = polymerTemplate
+            .windowed(2)
+            .map { it.first() to it.last() }
+            .countBy { it }
+            .mapValues { it.value.toULong() }
 
         val processedElementPairCounts: MutableMap<Pair<Char, Char>, ULong> =
             (1..times).fold(elementPairCounts) { accumulator: Map<Pair<Char, Char>, ULong>, _ ->
@@ -42,9 +43,9 @@ object Day14 : Solution() {
 
                 return@fold newElementPairCounts
             }.toMutableMap()
-        // The count of the last element pair of the polymer template is off-by-one:
-        processedElementPairCounts[polymerTemplatePairs.last()] =
-            (processedElementPairCounts[polymerTemplatePairs.last()] ?: 0UL) + 1UL
+        // The count of the first and last element of the polymer template is missing still
+        val missingPair: Pair<Char, Char> = Pair(polymerTemplate.first(), polymerTemplate.last())
+        processedElementPairCounts[missingPair] = (processedElementPairCounts[missingPair] ?: 0UL) + 1UL
 
         return processedElementPairCounts
     }
@@ -61,7 +62,7 @@ object Day14 : Solution() {
 
                 return@fold frequencies
             }
-            .mapValues { it.value / 2UL }
+            .mapValues { it.value / 2UL } // Since every element is contained in two pairs
 
         val mostCommonElement: Map.Entry<Char, ULong> = elementCounts.maxByOrNull { it.value }!!
         val leastCommonElement: Map.Entry<Char, ULong> = elementCounts.minByOrNull { it.value }!!
