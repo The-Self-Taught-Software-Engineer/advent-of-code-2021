@@ -44,7 +44,7 @@ object Day14 : Solution() {
                 return@fold newElementPairCounts
             }.toMutableMap()
         // The count of the first and last element of the polymer template is missing still
-        val missingPair: Pair<Char, Char> = Pair(polymerTemplate.first(), polymerTemplate.last())
+        val missingPair: Pair<Char, Char> = Pair(polymerTemplate.last(), polymerTemplate.first())
         processedElementPairCounts[missingPair] = (processedElementPairCounts[missingPair] ?: 0UL) + 1UL
 
         return processedElementPairCounts
