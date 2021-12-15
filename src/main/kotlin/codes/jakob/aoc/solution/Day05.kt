@@ -50,7 +50,7 @@ object Day05 : Solution() {
     ) {
         private val euclideanDistance: Double = euclideanDistance()
         private val hops: Int = if (isDiagonal()) abs(from.x - to.x) else euclideanDistance.toInt()
-        val points: List<Point> by lazy { listOf(from) + pointsInBetween() + listOf(to) }
+        val points: List<Point> by lazy { from + pointsInBetween() + to }
 
         fun isDiagonal(): Boolean {
             return !(from.x == to.x || from.y == to.y)

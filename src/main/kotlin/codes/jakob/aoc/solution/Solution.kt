@@ -60,6 +60,13 @@ fun CharSequence.toSingleChar(): Char {
     return this.first()
 }
 
+operator fun <T> T.plus(collection: Collection<T>): List<T> {
+    val result = ArrayList<T>(collection.size + 1)
+    result.add(this)
+    result.addAll(collection)
+    return result
+}
+
 fun <T, K> Collection<T>.countBy(keySelector: (T) -> K): Map<K, Int> {
     return this.groupingBy(keySelector).eachCount()
 }

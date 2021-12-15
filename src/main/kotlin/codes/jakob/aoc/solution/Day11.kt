@@ -56,7 +56,7 @@ object Day11 : Solution() {
             require(willFlash) { "Octopus $this is not ready to flash" }
             energyLevel = 0
             didFlash = true
-            return setOf(this) + cell.getAdjacent(true).flatMap { it.value.adjacentFlashed() }
+            return (this + cell.getAdjacent(true).flatMap { it.value.adjacentFlashed() }).toSet()
         }
 
         private fun adjacentFlashed(): Set<Octopus> {
