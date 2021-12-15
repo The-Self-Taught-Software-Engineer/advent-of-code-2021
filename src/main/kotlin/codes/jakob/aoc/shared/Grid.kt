@@ -7,7 +7,7 @@ class Grid<T>(input: List<List<(Cell<T>) -> T>>) {
     ) : this(generateInput(coordinateValues, defaultValueConstructor))
 
     val matrix: List<List<Cell<T>>> = generateMatrix(input)
-    val cells: List<Cell<T>> = matrix.flatten()
+    val cells: LinkedHashSet<Cell<T>> = LinkedHashSet(matrix.flatten())
 
     fun getAdjacent(x: Int, y: Int, diagonally: Boolean = false): List<Cell<T>> {
         return listOfNotNull(
@@ -46,6 +46,11 @@ class Grid<T>(input: List<List<(Cell<T>) -> T>>) {
 
         fun getAdjacent(diagonally: Boolean = false): List<Cell<T>> {
             return grid.getAdjacent(coordinates.x, coordinates.y, diagonally)
+        }
+
+        fun distanceTo(other: Cell<T>, diagonally: Boolean = false): Int {
+            require(other in grid.cells) { "Start and end point are not in the same grid" }
+            return this.coordinates.distanceTo(other.coordinates, diagonally)
         }
 
         override fun toString(): String {

@@ -34,6 +34,7 @@ Your instincts tell you that in order to save Christmas, you'll need to get all 
 | Day 12: Passage Pathing         | ⭐      | ⭐      |
 | Day 13: Transparent Origami     | ⭐      | ⭐      |
 | Day 14: Extended Polymerization | ⭐      | ⭐      |
+| Day 15: Chiton                  | ⭐      | ⭐      |
 
 ### Tests
 
