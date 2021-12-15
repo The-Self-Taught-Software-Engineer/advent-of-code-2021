@@ -14,7 +14,7 @@ object Day15 : Solution() {
     }
 
     override fun solvePart2(input: String): Any {
-        val grid: Grid<Int> = enlargeGrid(Grid(parseInput(input)), 5)
+        val grid: Grid<Int> = Grid(parseInput(input)).enlarge(5)
         val shortestPath: List<Vertex<Grid.Cell<Int>>> = findShortestPath(grid)
         return shortestPath.map { it.value }.drop(1).sumOf { it.value }
     }
@@ -35,9 +35,9 @@ object Day15 : Solution() {
         )
     }
 
-    private fun enlargeGrid(grid: Grid<Int>, times: Int): Grid<Int> {
-        val height: Int = grid.matrix.count()
-        val width: Int = grid.matrix.first().count()
+    private fun Grid<Int>.enlarge(times: Int): Grid<Int> {
+        val height: Int = this.matrix.count()
+        val width: Int = this.matrix.first().count()
         val input: List<List<(Grid.Cell<Int>) -> Int>> =
             List(height * times) { y: Int ->
                 List(width * times) { x: Int ->
@@ -45,7 +45,7 @@ object Day15 : Solution() {
                     val right: Int = x / width
                     val originalY: Int = y % height
                     val originalX: Int = x % width
-                    var value = grid.matrix[originalY][originalX].value + down + right
+                    var value = this.matrix[originalY][originalX].value + down + right
                     if (value != 9) value %= 9
                     { value }
                 }
